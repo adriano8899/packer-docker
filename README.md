@@ -1,6 +1,6 @@
 [Packer](http://packer.io) templates for [Docker](https://www.docker.com/).
 
-- [x] CentOS 6.9 (Minimal) 64-bit
+- [x] Demo - provision docker image using ansible
 
 
 # Quick Guide
