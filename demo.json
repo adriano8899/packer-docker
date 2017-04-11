@@ -1,0 +1,58 @@
+{
+    "variables": {
+          "project_title": "demo",
+          "project_tag": "0.1"
+    },
+    "builders": [
+        {
+            "type": "docker",
+            "image": "ubuntu:16.04",
+            "commit": "true",
+            "pull": "false",
+            "run_command": [
+                "-d",
+                "-i",
+                "-t",
+                "{{.Image}}"
+            ]
+        }
+    ],
+    "post-processors": [
+      [  {
+          "type": "docker-save",
+          "path": "build/{{ user `project_title` }}-{{ user `project_tag` }}.tar"
+        },
+        {
+          "type": "manifest",
+          "strip_path": true
+        }],
+        [
+            {
+                "type": "docker-tag",
+                "repository": "{{ user `dockerhub_repo` }}/{{ user `project_title` }}",
+                "tag": "latest"
+            },
+            {
+              "type": "docker-tag",
+              "repository": "{{ user `dockerhub_repo` }}/{{ user `project_title` }}",
+              "tag": "{{ user `project_tag` }}"
+            },
+            {
+                "type": "docker-push",
+                "login": true,
+                "login_username": "{{ user `dockerhub_username` }}",
+                "login_password": "{{ user `dockerhub_password` }}"
+            }
+      ]
+    ],
+    "provisioners": [
+      {
+           "type": "shell",
+           "script": "script/install-ansible.sh"
+      },
+      {
+           "type": "ansible-local",
+           "playbook_file": "playbook/{{ user `project_title` }}.yml"
+      }
+    ]
+ }
