@@ -1,0 +1,34 @@
+# |
+# | ······ VirtualEnv
+# |
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+
+# |
+# | ······ Packer
+# |
+# Cache objects
+packer_cache/
+output-virtualbox-iso/
+output-vmware-iso/
+
+# |
+# | ······ Build
+# |
+build/*
+!build/README.MD
+packer-manifest.json
+
+# |
+# | ······ Secrets
+# |
+[Ss]ecrets/*
+!secrets/dockerhub.json.template
