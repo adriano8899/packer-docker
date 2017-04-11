@@ -51,3 +51,13 @@ brew install packer
 brew install docker
 ```
 ---
+
+## Build
+* Build virtualbox .box image
+```bash
+packer inspect demo.json
+packer validate demo.json
+packer build -var-file=secrets/dockerhub.json demo.json
+```
+***Tip -***
+Be sure to create the secrets/dockerhub.json from secrets/dockerhub.json.template file: `cp secrets/dockerhub.json.template secrets/dockerhub.json; vim secrets/dockerhub.json`
